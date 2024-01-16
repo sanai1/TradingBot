@@ -1,0 +1,31 @@
+import requests
+from bs4 import BeautifulSoup
+
+headers = {
+    'User-Agent': 'Your User Agent String',
+    'Accept-Language': 'Your Desired Language',
+}
+
+req = requests.get("https://www.dohod.ru/ik/analytics/share", headers=headers)
+
+src = req.text
+
+soup = BeautifulSoup(src, 'lxml')
+
+table = soup.find('table', id = 'table-stock-share')
+
+# Инициализируем двумерный массив
+table_data = []
+
+for row in table.find_all('tr'):
+    # Получаем данные из ячеек и добавляем в массив
+    row_data = [cell.get_text(strip=True) for cell in row.find_all(['td', 'th'])]
+    table_data.append(row_data)
+
+# Выбираем только нужные компании и данные о них
+mt = [row[1:3] + row[4:5] + row[6:7] + row[8:11] + row[12:15] + row[16:19] + row[20:23] for row in table_data]
+mt = [row[:2] + row[3:] for row in mt]
+ft = [row for row in mt if row[0].endswith("market_1")]
+
+for row in ft:
+    print(row)
