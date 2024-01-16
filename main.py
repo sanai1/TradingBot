@@ -3,7 +3,7 @@ from bs4 import BeautifulSoup
 from db import DBHeper
 
 # НЕ ЗАБУДЬТЕ ВСТАВИТЬ СВОЙ ТОКЕН!!!!
-token = '6291399833:AAEFvkL-1IxVMeoyxP7Rryrn0NLeQMge5rE'
+token = 'вставить токен'
 bot = telebot.TeleBot(token)
 
 keyboard_name = "сектор" # переменная для определение в каком меню находишься TODO: желательно заменить на что-то получше (сделать вместе с реализацией кнопки назад)
